@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>𝐍𝐈𝐆𝐆𝐀 𝐁𝐎𝐎𝐒𝐓𝐈𝐍𝐆 𝐖𝐄𝐁</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: #ccc;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 400px;
+      width: 100%;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-align: center;
+      border: 2px solid #1F51FF;
+    }
+    .logo img {
+      width: 80px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #f0f0f0;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 2px;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    form {
+      display: grid;
+      gap: 15px;
+    }
+    label {
+      font-weight: bold;
+      color: #ddd;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #666;
+      border-radius: 6px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #eee;
+      box-sizing: border-box;
+    }
+    input#cookie {
+      height: 90px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
+    }
+    button {
+      background-color: #333;
+      color: #fff;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #555;
+    }
+    .error {
+      color: red;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://i.ibb.co/9r7R6wy/niggas.png" alt="Logo">
+    </div>
+    <h2>Facebook Post Sharer</h2>
+    <form id="postForm" action="/api/submit" method="POST">
+      <label for="cookie">Facebook Cookie :</label>
+      <input type="text" id="cookie" name="cookie" required>
+
+      <label for="url">Post URL:</label>
+      <input type="text" id="url" name="url" required>
+
+      <label for="amount">Number of Shares:</label>
+      <input type="number" id="amount" name="amount" min="1" required>
+
+      <div id="intervalWrapper" style="display: none;">
+        <label for="interval">Interval between Shares (seconds):</label>
+        <input type="number" id="interval" name="interval" value="2" readonly>
+      </div>
+
+      <button type="submit">SUBMIT</button>
+
+      <div id="formError" class="error"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('postForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+      const formDataObject = {};
+      formData.forEach((value, key) => {
+        formDataObject[key] = value;
+      });
+
+      try {
+        const response = await fetch('/api/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formDataObject)
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to submit form');
+        }
+
+        alert('Successfully shared post on Facebook!');
+        document.getElementById('postForm').reset();
+        document.getElementById('formError').textContent = '';
+      } catch (error) {
+        document.getElementById('formError').textContent = error.message || 'Unknown error occurred';
+      }
+    });
+  </script>
+</body>
+</html>
