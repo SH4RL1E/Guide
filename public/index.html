@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>𝐍𝐈𝐆𝐆𝐀 𝐁𝐎𝐎𝐒𝐓𝐈𝐍𝐆 𝐖𝐄𝐁</title>
+  <title>𝐀𝐔𝐓𝐎 𝐒𝐇𝐀𝐑𝐄 𝐅𝐁 𝐁𝐘 𝐙𝐂𝐃𝐒 𝐏𝐇</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,19 +14,44 @@
       color: #ccc;
       overflow: hidden;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+    }
+    .navbar {
+      width: 100%; 
+      background-color: #000;
+      padding: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar .logo img {
+      width: 60px;
+      height: auto;
+      margin-left: 20px;
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 15px;
+      transition: color 0.3s ease;
+      font-size: 14px;
+    }
+    .navbar a:hover {
+      color: #1F51FF;
     }
     .container {
+      width: calc(100% - 40px);
       max-width: 400px;
-      width: 100%;
       padding: 30px;
       background: rgba(0, 0, 0, 0.8);
       border-radius: 8px;
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
       text-align: center;
+      margin-top: 20px;
       border: 2px solid #1F51FF;
+      box-sizing: border-box; 
     }
     .logo img {
       width: 80px;
@@ -94,19 +119,23 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="navbar">
     <div class="logo">
       <img src="https://i.ibb.co/9r7R6wy/niggas.png" alt="Logo">
     </div>
-    <h2>Facebook Post Sharer</h2>
+    <a href="guide.html">𝙶𝚄𝙸𝙳𝙴 𝙷𝙴𝚁𝙴</a>
+  </div>
+
+  <div class="container">
+    <h2>𝐅𝐁 𝐀𝐔𝐓𝐎 𝐒𝐇𝐀𝐑𝐄</h2>
     <form id="postForm" action="/api/submit" method="POST">
-      <label for="cookie">Facebook appstate :</label>
+      <label for="cookie">𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 𝐀𝐏𝐏𝐒𝐓𝐀𝐓𝐄 :</label>
       <input type="text" id="cookie" name="cookie" required>
 
-      <label for="url">Post URL:</label>
+      <label for="url">𝐏𝐎𝐒𝐓 𝐔𝐑𝐋 [ 𝐏𝐔𝐁𝐋𝐈𝐂 ] :</label>
       <input type="text" id="url" name="url" required>
 
-      <label for="amount">Number of Shares:</label>
+      <label for="amount">𝐒𝐇𝐀𝐑𝐄 𝐋𝐈𝐌𝐈𝐓 𝐂𝐎𝐔𝐍𝐓 :</label>
       <input type="number" id="amount" name="amount" min="1" required>
 
       <div id="intervalWrapper" style="display: none;">
@@ -114,7 +143,7 @@
         <input type="number" id="interval" name="interval" value="2" readonly>
       </div>
 
-      <button type="submit">SUBMIT</button>
+      <button type="submit">𝚂𝚄𝙱𝙼𝙸𝚃</button>
 
       <div id="formError" class="error"></div>
     </form>
@@ -142,7 +171,7 @@
           throw new Error('Failed to submit form');
         }
 
-        alert('Successfully shared post on Facebook!');
+        alert('ᴀᴜᴛᴏ ꜱʜᴀʀɪɴɢ ɪꜱ ᴘʀᴏɢʀᴇꜱꜱɪɴɢ ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴜɴᴛɪʟ ɪᴛ ᴅᴏɴᴇ');
         document.getElementById('postForm').reset();
         document.getElementById('formError').textContent = '';
       } catch (error) {
