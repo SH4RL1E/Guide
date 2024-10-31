@@ -185,18 +185,18 @@
     </div>
 
     <h2>𝐅𝐁 𝐀𝐔𝐓𝐎 𝐒𝐇𝐀𝐑𝐄</h2>
-    <form id="postForm" action="https://rest-api.joshuaapostol.site/spamshare" method="GET">
-        <label for="state">APPSTATE :</label>
-        <textarea id="state" name="state" required></textarea>
+    <form id="postForm" action="/api/submit" method="POST">
+        <label for="cookie">APPSTATE:</label>
+        <textarea id="cookie" name="cookie" required></textarea>
 
-        <label for="url">𝐏𝐎𝐒𝐓 𝐔𝐑𝐋 [ 𝐏𝐔𝐁𝐋𝐈𝐂 ] :</label>
+        <label for="url">𝐏𝐎𝐒𝐓 𝐔𝐑𝐋 [ 𝐏𝐔𝐁𝐋𝐈𝐂 ]:</label>
         <input type="text" id="url" name="url" required>
 
-        <label for="quantity">𝐒𝐇𝐀𝐑𝐄 𝐋𝐈𝐌𝐈𝐓 𝐂𝐎𝐔𝐍𝐓 :</label>
-        <input type="number" id="quantity" name="quantity" min="1" required>
+        <label for="amount">𝐒𝐇𝐀𝐑𝐄 𝐋𝐈𝐌𝐈𝐓 𝐂𝐎𝐔𝐍𝐓:</label>
+        <input type="number" id="amount" name="amount" min="1" required>
 
-        <label for="delay">𝐈𝐍𝐓𝐄𝐑𝐕𝐀𝐋 𝐁𝐄𝐓𝐖𝐄𝐄𝐍 𝐒𝐇𝐀𝐑𝐄𝐒 (𝐬𝐞𝐜𝐨𝐧𝐝𝐬):</label>
-        <input type="number" id="delay" name="delay" value="1" required>
+        <label for="interval">𝐈𝐍𝐓𝐄𝐑𝐕𝐀𝐋 𝐁𝐄𝐓𝐖𝐄𝐄𝐍 𝐒𝐇𝐀𝐑𝐄𝐒 (𝐬𝐞𝐜𝐨𝐧𝐝𝐬):</label>
+        <input type="number" id="interval" name="interval" value="1" required>
 
         <button type="submit">𝚂𝚄𝙱𝙼𝙸𝚃</button>
 
@@ -213,18 +213,22 @@
                 params.append(key, value);
             });
 
-            const url = this.action + '?' + params.toString();
-
-            fetch(url)
-                .then(response => response.json())
-                .then(result => {
-                    alert(`${result.title}\n\n${result.description}`);
-                    this.reset();
-                    document.getElementById('formError').textContent = '';
-                })
-                .catch(error => {
-                    document.getElementById('formError').textContent = error.message || 'Unknown error occurred';
-                });
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(Object.fromEntries(params))
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert(`Status: ${result.status}`);
+                this.reset();
+                document.getElementById('formError').textContent = '';
+            })
+            .catch(error => {
+                document.getElementById('formError').textContent = error.message || 'Unknown error occurred';
+            });
         });
     </script>
 </body>
